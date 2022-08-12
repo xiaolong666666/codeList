@@ -7,7 +7,7 @@
   <title>Document</title>
   <script>
     window.onload = function () {
-      var el = document.querySelector("#box");
+      var el = document.querySelector("body");  // 获取body元素(需要将变量绑定在父级元素上！！！)
       el.style.setProperty("--color", "white"); //js往css传递参数
       el.style.setProperty("--background-color", "red"); //js往css传递参数
 
@@ -20,9 +20,14 @@
       color: var(--color);
       background-color: var(--background-color);
     }
+    #content {
+      color: var(--color);
+      background-color: var(--background-color);
+    }
   </style>
 </head>
 <body>
-  <div id="box">如何通过js传输常量给css，共用js的常量值</div>
+  <div id="box">js传输常量给css，共用js的常量值</div>
+  <div id="content">js传输变量给css，共用js的变量值</div>
 </body>
 </html>
