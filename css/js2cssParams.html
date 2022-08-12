@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    window.onload = function () {
+      var el = document.querySelector("#box");
+      el.style.setProperty("--color", "white"); //js往css传递参数
+      el.style.setProperty("--background-color", "red"); //js往css传递参数
+
+      console.log(getComputedStyle(el).getPropertyValue("--color")); //获取css参数
+      console.log(getComputedStyle(el).getPropertyValue("--background-color")); //获取css参数
+    }
+  </script>
+  <style>
+    #box {
+      color: var(--color);
+      background-color: var(--background-color);
+    }
+  </style>
+</head>
+<body>
+  <div id="box">如何通过js传输常量给css，共用js的常量值</div>
+</body>
+</html>
