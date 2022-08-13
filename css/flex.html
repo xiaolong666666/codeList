@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      height: 400px;
+    }
+
+    .box1 {
+      width: 200px;
+      background-color: #f00;
+    }
+
+    .box2 {
+      flex: 3;
+      background-color: #f80;
+    }
+
+    .box3 {
+      align-self: center;
+      flex: 2;
+      height: 200px;
+      background-color: #ff0;
+    }
+
+    .box4 {
+      align-self: flex-start;
+      width: 200px;
+      height: 200px;
+      background-color: #0f0;
+    }
+
+    .box {
+      justify-content: space-between;
+    }
+
+    .box5,
+    .box6 {
+      width: 200px;
+      background-color: #09F;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+  </div>
+  <hr>
+  <div class="container box">
+    <div class="box5"></div>
+    <div class="box6"></div>
+  </div>
+</body>
+
+</html>
