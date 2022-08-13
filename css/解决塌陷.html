@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 宗旨为激活容器元素的BFC */
+    ul{
+      list-style: none;
+    }
+
+    .container {
+      /* ① */
+      /* overflow: hidden; */
+      border: 1px solid #f00;
+    }
+
+    /* ②为塌陷容器添加伪元素 */
+    .container::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .container li {
+      float: left;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <ul>
+      <li>内容1</li>
+      <li>内容2</li>
+      <li>内容3</li>
+      <li>内容4</li>
+      <li>内容5</li>
+    </ul>
+  </div>
+</body>
+</html>
