@@ -1,13 +1,9 @@
 class MyURLSearchParams {
-  KEYS = 'keys'
-  VALUES = 'values'
-  ENTRIES = 'entries'
-
   constructor(params) {
     this.paramsList = this.convertParams(params)
   }
 
-  convertParams(params){
+  convertParams(params) {
     const convertParams = params.includes('http') ? params.substr(params.indexOf('?') + 1) : params
     return convertParams.split('&')
   }
@@ -45,18 +41,18 @@ class MyURLSearchParams {
       .includes(key)
   }
 
-  * [Symbol.interator](methodName) {
+  *[Symbol.interator](methodName) {
     const targets = this.paramsList
-    .map(item => {
-      const [paramKey, paramValue] = item.split('=')
-      if (methodName === this.KEYS) {
-        return paramKey
-      } else if (methodName === this.VALUES) {
-        return paramValue
-      } else if (methodName === this.ENTRIES) {
-        return [paramKey, paramValue]
-      }
-    })
+      .map(item => {
+        const [paramKey, paramValue] = item.split('=')
+        if (methodName === 'keys') {
+          return paramKey
+        } else if (methodName === 'values') {
+          return paramValue
+        } else if (methodName === 'entries') {
+          return [paramKey, paramValue]
+        }
+      })
 
     for (let target of targets) {
       yield target
@@ -64,15 +60,15 @@ class MyURLSearchParams {
   }
 
   keys() {
-    return this[Symbol.interator](this.KEYS)
+    return this[Symbol.interator]('keys')
   }
 
   values() {
-    return this[Symbol.interator](this.VALUES)
+    return this[Symbol.interator]('values')
   }
 
   entries() {
-    return this[Symbol.interator](this.ENTRIES)
+    return this[Symbol.interator]('entries')
   }
 
   set(key, value) {
@@ -93,4 +89,4 @@ class MyURLSearchParams {
 
 }
 
-const myParams = new MyURLSearchParams('name=tom&age=18&sex=boy')
+// const myParams = new MyURLSearchParams('name=tom&age=18&sex=boy')

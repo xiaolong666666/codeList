@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#father{
+				position: absolute;
+				top: 100px;
+				left: 50%;
+				width: 296px;
+				margin-left: -148px;
+				text-align: center;
+			}
+			#focus{
+				position: absolute;
+				display: inline-block;
+				left: 50%;
+				transform: translateX(-50%);
+				top: 80%;
+			}
+			#focus span{
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				margin: 0px 2px;
+				background: url(img/dot.png);
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				const $ = id => document.getElementById(id)
+				let imgs = $("imgs")
+				let focus = $("focus")
+				let spans = document.getElementsByTagName("span")
+				let nodeindex
+				let k = 1
+				for (let i = 0; i < spans.length; i++) {
+					spans[i].index = i
+					spans[i].onclick = function(){
+						for (let j = 0; j < spans.length; j++) {
+							spans[j].style.background = "url(img/dot.png)"
+						}
+						this.style.background = "url(img/dotActive.png)"
+						nodeindex = this.index
+						if (-[1,]) {	// 标准浏览器
+							imgs.firstElementChild.src = `img/${this.index}.jpg`
+						} else {	// 非标准浏览器
+							imgs.firstChild.src = `img/${this.index}.jpg`
+						}
+					}
+				}
+				setInterval(()=>{
+					for (let i = 0; i < spans.length; i++) {
+						spans[i].style.background = "url(img/dot.png)"
+					}
+					if (!!nodeindex) {
+						k = nodeindex
+						nodeindex = undefined
+					}
+					spans[k].style.background = "url(img/dotActive.png)"
+					if (-[1,]) {	// 标准浏览器
+						imgs.firstElementChild.src = `img/${k}.jpg`
+					} else {	// 非标准浏览器
+						imgs.firstChild.src = `img/${k}.jpg`
+					}
+					if (k === 5) {
+						k = -1
+					}
+					k++
+				}, 2000)
+			}
+		</script>
+	</head>
+	<body>
+		<div id="father">
+			<div id="imgs">
+				<img src="img/0.jpg">
+			</div>
+			<div id="focus">
+				<span class="s1" style="background: url(img/dotActive.png);"></span>
+				<span class="s2"></span>
+				<span class="s3"></span>
+				<span class="s4"></span>
+				<span class="s5"></span>
+				<span class="s5"></span>
+			</div>
+		</div>
+	</body>
+</html>
