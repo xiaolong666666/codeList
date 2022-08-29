@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container ul {
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+		}
+    .container li {
+      margin: 0px;
+      padding: 0px;
+      border: 1px solid #09F;
+    }
+    .container li img {
+      display: block;
+      width: 300px;
+      height: 200px;
+      margin: 20px auto;
+    }
+  </style>
+  <script>
+    window.onload = lazyLoad
+
+    window.onscroll = function() {
+      setTimeout(lazyLoad, 2000)
+    }
+
+    function lazyLoad() {
+      const imgs = document.getElementsByTagName('img')
+      for (let i = 0; i < imgs.length; i++) {
+        if (imgs[i].getBoundingClientRect().top < window.innerHeight) {
+          imgs[i].src = imgs[i].getAttribute('data-id')
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <ul>
+      <li><img data-id="img/0.jpg"></li>
+      <li><img data-id="img/1.jpg"></li>
+      <li><img data-id="img/2.jpg"></li>
+      <li><img data-id="img/3.jpg"></li>
+      <li><img data-id="img/4.jpg"></li>
+      <li><img data-id="img/6.jpg"></li>
+      <li><img data-id="img/7.jpg"></li>
+      <li><img data-id="img/8.jpg"></li>
+      <li><img data-id="img/9.jpg"></li>
+      <li><img data-id="img/10.jpg"></li>
+      <li><img data-id="img/11.jpg"></li>
+      <li><img data-id="img/12.png"></li>
+      <li><img data-id="img/13.jpg"></li>
+      <li><img data-id="img/14.jpg"></li>
+      <li><img data-id="img/15.png"></li>
+      <li><img data-id="img/16.jpg"></li>
+      <li><img data-id="img/17.jpg"></li>
+      <li><img data-id="img/18.jpg"></li>
+      <li><img data-id="img/19.jpg"></li>
+      <li><img data-id="img/20.jpg"></li>
+      <li><img data-id="img/21.jpg"></li>
+      <li><img data-id="img/22.jpg"></li>
+      <li><img data-id="img/23.jpg"></li>
+      <li><img data-id="img/24.jpg"></li>
+    </ul>
+  </div>
+</body>
+</html>
