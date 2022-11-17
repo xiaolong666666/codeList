@@ -76,3 +76,27 @@ const quickSort = (arr, start = 0, end = arr.length - 1) => {
   quickSort(arr, start, r - 1)
   quickSort(arr, l + 1, end)
 }
+
+// TODO:
+计数排序
+function Counting(A){ 
+var B = []; 
+var C = []; 
+var min = max = A[0]; 
+// 逐个按下标排列形成B数组 
+for(var i = 0; i < A.length; i++){ 
+min = min <= A[i] ? min : A[i]; 
+max = max >= A[i] ? max : A[i]; 
+B[A[i]] = B[A[i]] ? B[A[i]]+1 : 1; 
+} 
+// 整理B数组 
+for(var i = min; i < max; i++){ 
+B[i+1] = (B[i+1] || 0) + (B[i] || 0); 
+} 
+// 由A、B数组形成C数组 
+for(var i = A.length-1; i>=0; i--){ 
+C[B[A[i]]] = A[i]; 
+B[A[i]]--; 
+} 
+return C; 
+}
