@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .form {
+            width: 600px;
+            margin: 50px auto;
+        }
+        .item {
+            width: 100%;
+            margin: 4px auto;
+        }
+        .item label {
+            display: inline-block;
+            width: 20%;
+            text-align: right;
+        }
+        label::before {
+            content: '*';
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            color: red;
+        }
+        input {
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+        span {
+            color: red;
+        }
+        .special_style {
+            margin-left: 20%;
+        }
+        .primary {
+            cursor: pointer;
+            background: #A2D8FF;
+        }
+        .normal {
+            cursor: pointer;
+            background: #FFF;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const getDOMById = function(id) {
+                return document.getElementById(id)
+            }
+            const myform = getDOMById('myform')
+            const userName = getDOMById('userName')
+            const userNameTips = getDOMById('userNameTips')
+            const passWord = getDOMById('passWord')
+            const passWordTips = getDOMById('passWordTips')
+            const agree = getDOMById('agree')
+            const agreeTips = getDOMById('agreeTips')
+
+            userName.onfocus = function() {
+                userNameTips.innerHTML = ""
+            }
+
+            passWord.onfocus = function () {
+                passWordTips.innerHTML = ""
+            }
+
+            myform.onsubmit = function(e) {
+                if (userName.value.trim() === '') {
+                    userNameTips.innerHTML = "请输入Username"
+                    e.preventDefault()
+                }
+                if (passWord.value.trim() === '') {
+                    passWordTips.innerHTML = "请输入Password"
+                    e.preventDefault()
+                }
+                if (!agree.checked) {
+                    agreeTips.innerHTML = "请选择agree"
+                    e.preventDefault()
+                }
+                console.log(`结果送出：Username ${userName.value} Password ${passWord.value} agree ${agree.checked}`)
+            }
+        }
+    </script>
+</head>
+<body>
+    <form id="myform" action="test.html" class="form">
+        <div class="item">
+            <label for="userName">Username：</label>
+            <input type="text" name="" id="userName" autocomplete="off">
+            <span id="userNameTips"></span>
+        </div>
+        <div class="item">
+            <label for="passWord">Password：</label>
+            <input type="password" name="" id="passWord" autocomplete="off">
+            <span id="passWordTips"></span>
+        </div>
+        <div class="item">
+            <input type="checkbox" value="true" id="agree" class="special_style">Agree
+            <span id="agreeTips"></span>
+        </div>
+        <div>
+            <input type="submit" id="submit" value="Submit" class="primary special_style">
+            <input type="reset" value="Reset" class="normal">
+        </div>
+    </form>
+</body>
+</html>

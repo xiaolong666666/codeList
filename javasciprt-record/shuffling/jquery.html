@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .banner{
+            overflow: hidden;
+            position: relative;
+            width: 296px;
+            height: 142px;
+            margin: 100px auto;
+            border: 2px solid #999;
+        }
+        .img,.photo{
+            display: inline-block;
+            width: 296px;
+            height: 142px;
+        }
+        .img{
+            display: none;
+        }
+        .switch{
+            position: absolute;
+            left: 50%;
+            top: 90%;
+            transform: translate(-50%,-50%);
+            display: block;
+            width: 180px;
+            height: 20px;
+        }
+        .switch a{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            margin: 0 0 0 10px;
+            background: #fff;
+            opacity: 0.5;
+        }
+        .switch .on{
+            background: #fff;
+            opacity: 0.9;
+        }
+        .banner>a{
+            display: none;
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ccc;
+            font-size: 40px;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            line-height: 36px;
+        }
+        .banner .toleft{
+            top: 51px;
+            left: 0px;
+        }
+        .banner .toright{
+            top: 51px;
+            right: 0px;
+        }
+        .toleft:hover,.toright:hover{
+            background: #666;
+        }
+    </style>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/jquery.easing.js"></script>
+    <script>
+        $(function(){
+            var i =0;
+            var interval;
+            var timeout;
+            function autoChange(){
+                i = i==5 ? 0 :i+1;
+                $(".img:eq("+i+")").children().attr("src","img/"+i+".jpg").parent().fadeIn(500,"easeOutQuart").siblings(".img:visible").fadeOut(50,"easeOutQuad");
+                $(".switch a:eq("+i+")").addClass("on").siblings("[class=on]").removeClass("on"); 
+            }
+            
+            interval = setInterval(autoChange,2000);
+
+            $(".switch a").hover(function(){
+                i = $(this).index()-1;
+                timeout = setTimeout(autoChange,200);
+            },function(){
+                clearTimeout(timeout);
+            });
+
+            $(".banner").mouseover(function(){
+                clearInterval(interval);
+                $(this).children("a").css("display","block");
+            });
+
+            $(".banner").mouseout(function(){
+                interval = setInterval(autoChange, 2000);
+                $(this).children("a").css("display","none");
+            });
+
+            $(".toleft").click(function(){
+                i = i==0 ? 4 : i-2;
+                autoChange();
+            });
+
+            $(".toright").click(function () {
+                autoChange();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="banner">
+        <div>
+            <a href="#" class="img" style="display: inline-block;"><img src="img/0.jpg" class="photo" alt="图片加载错误"></a>
+            <a href="#" class="img"><img class="photo" alt="图片加载错误"></a>
+            <a href="#" class="img"><img class="photo" alt="图片加载错误"></a>
+            <a href="#" class="img"><img class="photo" alt="图片加载错误"></a>
+            <a href="#" class="img"><img class="photo" alt="图片加载错误"></a>
+            <a href="#" class="img"><img class="photo" alt="图片加载错误"></a>
+        </div>
+        <div class="switch">
+            <a href="#" class="on"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a>
+        </div>
+        <a href="#" class="toleft">&lt;</a>
+        <a href="#" class="toright">&gt;</a>
+    </div>
+</body>
+</html>
