@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 100px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background: #0ff;
+            text-align: center;
+            line-height: 100px;
+            font-size: 24px;
+            opacity: 0;
+        }
+    </style>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script>
+        $(function(){
+            $(".box").animate({"margin-left":"+=200px","opacity":"1"},1000);
+            $(".long").animate({"margin-left":"+=200px"},1000,function(){
+                $(".juan").animate({ "margin-left": "+=200px" }, 1000,function(){
+                    $(".longlong").animate({ "margin-left": "+=200px" }, 1000,function(){
+                        $(".juanjuan").animate({ "margin-left": "+=200px" }, 1000);
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="box long">小龙</div>
+    <div class="box juan">小娟</div>
+    <div class="box longlong">小❤龙</div>
+    <div class="box juanjuan">小❤娟</div>
+</body>
+</html>

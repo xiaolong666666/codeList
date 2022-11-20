@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script>
+        $(function(){
+            $("div").hover(function(){
+                $(this).animate({"width":"+=200px","height":"+=100px","lineHeight":"+=100px","marginTop":"-=50px","fontSize":"72px"},1000);
+            },function(){
+                $(this).animate({"width":"-=200px","height":"-=100px","lineHeight":"-=100px", "marginTop": "+=50px","fontSzie":"36px"},1000);
+            });
+            // $("div").mouseenter(function(){
+            //     $(this).animate({ "width": "+=200px", "height": "+=100px", "lineHeight": "+=100px", "fontSize": "72px" }, 1000);
+            // }).mouseleave(function(){
+            //     $(this).animate({ "width": "-=200px", "height": "-=100px", "lineHeight": "-=100px", "fontSzie": "36px" }, 1000);
+            // });
+        });
+    </script>
+    <style>
+        div{
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            margin: 100px auto;
+            border-radius: 10px;
+            background: chartreuse;
+            color: darkgoldenrod;
+            font-size: 36px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        Hello!
+    </div>
+    <div>
+        Hi!
+    </div>
+</body>
+</html>

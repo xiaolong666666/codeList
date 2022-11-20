@@ -3,7 +3,16 @@ const shallowClone = (obj) => {
     return { ...obj }
 }
 
-// JSON.parse(JSON.stringify(obj)) 也可以实现深拷贝，不过不能出来函数
+// JSON.parse(JSON.stringify(obj)) 也可以实现深拷贝，不过不能拷贝函数
+// const deepClone = (obj) => {
+//     const result = JSON.parse(JSON.stringify(obj))
+//     for (let i in obj) {
+//         if (x[i] === undefined || typeof x[i] === 'function') {
+//             result[i] = obj[i]
+//         }
+//     }
+// }
+
 const deepClone = (obj) => {
     if (typeof obj !== 'object') return obj
     const target = Array.isArray(obj) ? [] : {}
