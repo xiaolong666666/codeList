@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>防止重复提交一</title>
+    <link rel="stylesheet" href="css/index .css">
+    <script src="js/public.js"></script>
+    <script src="js/mock.js"></script>
+    <script src="data/data.js"></script>
+    <script>
+        $.addEvent({
+            elem: window,
+            eventType: "load",
+            func: function(){
+                var btn = document.getElementById("btn");
+                var content = document.getElementById("content");
+                $.addEvent({
+                    elem: btn,
+                    eventType: "click",
+                    func: function (){
+                        btn.disabled = true;
+                        content.innerHTML = "";
+                        content.className = "bgimg";
+                        $.ajax({
+                            type: "GET",
+                            url: "data.php",
+                            dataType: "json",
+                            success: function(data){
+                                data = data.data;
+                                str = "<ul>";
+                                for(var i in data){
+                                    str += "<li>"+"学号："+data[i].number+" 姓名："+data[i].name+" 年龄："+data[i].age+" 系别："+data[i].dept+" 性别："+data[i].sex+"</li>";
+                                }
+                                content.className = "";
+                                content.innerHTML = str + "</ul>";
+                            },
+                            completed: function(){
+                                btn.disabled = false;
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <input type="button" id="btn" value="获取数据">
+    <div id="content">
+
+    </div>
+</body>
+</html>
