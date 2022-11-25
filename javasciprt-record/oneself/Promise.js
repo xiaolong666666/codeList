@@ -55,7 +55,7 @@ class MyPromise {
         break;
         case 'rejected': setTimeout(() => {
           try {
-            const result = resolveEvent(this.error)
+            const result = rejectEvent(this.error)
             resolve(result)
           } catch (error) {
             reject(error)
