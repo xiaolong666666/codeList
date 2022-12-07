@@ -33,23 +33,29 @@ const inputTree =
   //     { id: 1, text: 'text1' },
   // ];
 
-const inputArray = 
-  [
-    { id: 1, name: 'i1' },
-    { id: 2, name: 'i2', parentId: 1 },
-    { id: 4, name: 'i4', parentId: 3 },
-    { id: 3, name: 'i3', parentId: 2 },
-  ]
+// const inputArray = 
+//   [
+//     { id: 1, name: 'i1' },
+//     { id: 2, name: 'i2', parentId: 1 },
+//     { id: 4, name: 'i4', parentId: 3 },
+//     { id: 3, name: 'i3', parentId: 2 },
+//   ]
 
 const tree2Array = (tree) => {
-  let result = []
-  if (Array.isArray(tree)) {
-    tree.forEach(({ children, ...attribute }) => {
-      if (Array.isArray(children) && children.length > 0) result.push(...tree2Array(children))
-      result.push(attribute)
-    })
-  }
-  return result
+  // let result = []
+  // if (Array.isArray(tree)) {
+  //   tree.forEach(({ children, ...attribute }) => {
+  //     if (Array.isArray(children) && children.length > 0) result.push(...tree2Array(children))
+  //     result.push(attribute)
+  //   })
+  // }
+  // return result
+
+  return Array.isArray(tree)
+    ? tree.reduce((total, current) =>
+      total.concat(Array.isArray(current.children) ? tree2Array(current.children) : [], delete current.children ? current : current)
+      , [])
+    : [tree]
 }
 
 const array2tree = (array) => {
@@ -73,8 +79,8 @@ const array2tree = (array) => {
   return parents
 }
 
-// const outputArray = tree2Array(inputTree)
-// console.log('outputArray', outputArray)
+const outputArray = tree2Array(inputTree)
+console.log('outputArray', outputArray)
 
-const outputTree = array2tree(inputArray)
-console.log('outputTree', outputTree)
+// const outputTree = array2tree(inputArray)
+// console.log('outputTree', outputTree)

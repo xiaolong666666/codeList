@@ -80,7 +80,7 @@ const quickSort = (arr, start = 0, end = arr.length - 1) => {
 }
 
 // TODO:
-计数排序
+// 计数排序
 function Counting(A){ 
 var B = []; 
 var C = []; 
