@@ -1,3 +1,4 @@
+// 参考：https://www.cnblogs.com/AlbertP/p/10847627.html
 // 复杂度：https://blog.csdn.net/weixin_30376453/article/details/96576126
 
 // 调换元素位置
@@ -79,26 +80,87 @@ const quickSort = (arr, start = 0, end = arr.length - 1) => {
   quickSort(arr, l + 1, end)
 }
 
-// TODO:
 // 计数排序
-function Counting(A){ 
-var B = []; 
-var C = []; 
-var min = max = A[0]; 
-// 逐个按下标排列形成B数组 
-for(var i = 0; i < A.length; i++){ 
-min = min <= A[i] ? min : A[i]; 
-max = max >= A[i] ? max : A[i]; 
-B[A[i]] = B[A[i]] ? B[A[i]]+1 : 1; 
-} 
-// 整理B数组 
-for(var i = min; i < max; i++){ 
-B[i+1] = (B[i+1] || 0) + (B[i] || 0); 
-} 
-// 由A、B数组形成C数组 
-for(var i = A.length-1; i>=0; i--){ 
-C[B[A[i]]] = A[i]; 
-B[A[i]]--; 
-} 
-return C; 
+// 将数据值转换为键存储在额外开辟的数组空间中，然后再按开辟的数组空间排序（有确定范围的整数）
+const countSort = (arr) => {
+  let index = 0
+  const max = Math.max(...arr)
+  const additional_length = max + 1
+  const additional = new Array(additional_length)
+  for (let v of arr) {
+    if (!additional[v]) {
+      additional[v] = 0
+    }
+    additional[v]++
+  }
+  for (let i = 0; i < additional_length; i++) {
+    while (additional[i] > 0) {
+      arr[index++] = i
+      additional[i]--
+    }
+  }
+  return arr
+}
+
+// 归并排序（递归、合并）
+// 把数组从中间拆分为前后两部分（递归），再将排好序的前后两部分合并为一个数组
+const mergeSort = (arr) => {
+  const length = arr.length
+  if (length < 2) return arr
+  const middle = Math.floor(length / 2)
+  const leftArr = arr.slice(0, middle)
+  const rightArr = arr.slice(middle)
+
+  const merge = (left, right) => {
+    const result = []
+    while (left.length && right.length) {
+      result.push(left[0] <= right[0] ? left.shift() : right.shift())
+    }
+    while (left.length) {
+      result.push(left.shift())
+    }
+    while (right.length) {
+      result.push(right.shift())
+    }
+    return result
+  }
+
+  return merge(mergeSort(leftArr), mergeSort(rightArr))
+}
+
+// 桶排序
+const bucketlSort = () => {
+
+}
+
+// 堆排序
+const heapSort = () => {
+
+}
+
+// 基数排序
+const radixSort = (arr) => {
+  const length = arr.length
+  const max = Math.max(...arr)
+  const maxDigit = String(max).length
+  var carry = 10
+  var bit = 1
+  for (let i = 0; i < maxDigit; i++, carry *= 10, bit *= 10) {
+    const counter = []
+    let index = 0
+    for (let j = 0; j < arr.length; j++) {
+      let bucket = Math.floor((arr[j] % carry) / bit)
+      if (!counter[bucket]) {
+        counter[bucket] = []
+      }
+      counter[bucket].push(arr[j])
+    }
+    for (let k = 0; k < counter.length; k++) {
+      if (!!counter[k]) {
+        while (!!counter[k][0]) {
+          arr[index++] = counter[k].shift()
+        }
+      }
+    }
+  }
 }

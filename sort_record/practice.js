@@ -35,6 +35,6 @@ const findNext = (n, arr) => {
     }
     return targetNum
 }
-const arr = [1, 5, 9, 15, 34, 28, 55, 78, 99];
-const result = findNext(31, arr)
+const myarr = [1, 5, 9, 15, 34, 28, 55, 78, 99];
+const result = findNext(31, myarr)
 console.log({ result })

@@ -8,10 +8,7 @@ const setRemoveRepeat = (arr) => {
 const indexOfRemoveRepeat = (arr) => {
     let result = []
     for (let i in arr) {
-        // if (arr.indexOf(arr[i]) == i) {
-        //     result.push(arr[i])
-        // }
-        if (result.indexOf(arr[i]) == -1) {
+        if (arr.indexOf(arr[i]) == i) {
             result.push(arr[i])
         }
     }
@@ -23,6 +20,9 @@ const includesRemoveRepeat = (arr) => {
     let result = []
     for (let v of arr) {
         !result.includes(v) && result.push(v)
+        // if (result.indexOf(v) == -1) {
+        //     result.push(v)
+        // }
     }
     return result
 }
