@@ -29,21 +29,22 @@ Function.prototype.myApply = function () {
 }
 
 Function.prototype.myBind = function () {
-    let args = Array.from(arguments)
+    let args = [...arguments]
     let thisArgs = args.shift() || window
     let thisFunc = this
 
     // 因为需要支持构造函数，所以不能使用匿名函数
     let bound = function () {
-        let newArgs = args.concat(Array.from(arguments))
-
+        let newArgs = [...args, ...arguments]
+        const isStructureFunc = this instanceof bound
         // 判断是否是构造函数
-        thisArgs = this instanceof bound ? this : thisArgs
-        return thisFunc.apply(thisArgs, newArgs)        
+        thisArgs = isStructureFunc ? Object.create(thisFunc.prototype) : thisArgs
+        thisFunc.apply(thisArgs, newArgs)
+        if (isStructureFunc) return thisArgs
     }
 
     // Object.create 拷贝原型对象
-    bound.prototype = Object.create(this.prototype)
+    bound.prototype = Object.create(thisFunc.prototype)
 
     return bound
 }

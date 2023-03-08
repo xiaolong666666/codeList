@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #img {
+            background: url("https://p.qqan.com/up/2018-3/15220329856036237.jpg");
+        }
+    </style>
+</head>
+<body>
+    <img id="img" src="" data-src="https://p.qqan.com/up/2018-3/15220329856036237.jpg" alt="">
+    <script>
+        setTimeout(() => {
+            const img = document.getElementsByTagName('img')[0]
+            img.src = img.dataset.src
+        }, 20000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 5px solid #F0F0F0;
+            overflow: auto;
+        }
+        .box p {
+            padding: 20px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const box = document.querySelector('.box')
+            box.addEventListener('scroll', function() {
+                const clientHeight = box.clientHeight
+                const scrollTop = box.scrollTop
+                const scrollHeight = box.scrollHeight
+                if (clientHeight + scrollTop === scrollHeight) {
+                    console.log('box 到达底部')
+                }
+            })
+
+            const body = document.documentElement
+            window.addEventListener('scroll', function() {
+                const clientHeight = body.clientHeight
+                const scrollTop = body.scrollTop
+                const scrollHeight = body.scrollHeight
+                if (clientHeight + scrollTop === scrollHeight) {
+                    console.log('body 到达底部')
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="box">
+        <p>p1</p>
+        <p>p2</p>
+        <p>p3</p>
+        <p>p4</p>
+        <p>p5</p>
+        <p>p6</p>
+        <p>p7</p>
+        <p>p8</p>
+        <p>p9</p>
+        <p>p10</p>
+        <p>p11</p>
+        <p>p12</p>
+        <p>p13</p>
+        <p>p14</p>
+        <p>p15</p>
+        <p>p16</p>
+        <p>p17</p>
+        <p>p18</p>
+        <p>p19</p>
+        <p>p20</p>
+    </div>
+    <div class="box1">
+        <p>p1</p>
+        <p>p2</p>
+        <p>p3</p>
+        <p>p4</p>
+        <p>p5</p>
+        <p>p6</p>
+        <p>p7</p>
+        <p>p8</p>
+        <p>p9</p>
+        <p>p10</p>
+        <p>p11</p>
+        <p>p12</p>
+        <p>p13</p>
+        <p>p14</p>
+        <p>p15</p>
+        <p>p16</p>
+        <p>p17</p>
+        <p>p18</p>
+        <p>p19</p>
+        <p>p20</p>
+    </div>
+</body>
+</html>
