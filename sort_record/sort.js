@@ -129,13 +129,55 @@ const mergeSort = (arr) => {
 }
 
 // 桶排序
-const bucketlSort = () => {
-
+const bucketlSort = (arr, bucketCapacity = 5) => {
+  let max = min = arr[0]
+  for (let v of arr) {
+    max = v > max ? v : max
+    min = v < min ? v : min
+  }
+  const bucketCount = Math.ceil((max - min + 1) / bucketCapacity)
+  const bucket = new Array(bucketCount)
+  for (let v of arr) {
+    const index = Math.floor((v - min) / bucketCapacity)
+    if (!bucket[index]) bucket[index] = []
+    bucket[index].push(v)
+  }
+  for (let i in bucket) {
+    insertSort(bucket[i])
+  }
+  for (let i in bucket.flat()) {
+    arr[i] = bucket.flat()[i]
+  }
 }
 
 // 堆排序
-const heapSort = () => {
+const heapSort = (arr) => {
+  var len = arr.length
 
+  // 堆调整
+  const heapify = (arr, i) => {
+    let left = 2 * i + 1;
+    right = left + 1;
+    largest = i
+    if (arr[left] > arr[largest] && left < len) largest = left
+    if (arr[right] > arr[largest] && right < len) largest = right
+    if (largest !== i) {
+      swap(arr, i, largest)
+      heapify(arr, largest) // 如果父节点有变化，（交换的子节点）为父节点的节点需要要重新进行堆调整
+    }
+  }
+
+  // 大顶堆（父节点大于子节点）
+  const buildMaxHeap = (arr) => {
+    for (let i = Math.floor((len - 2) / 2); i >= 0; i--) heapify(arr, i)
+  }
+  buildMaxHeap(arr)
+  for (let i = arr.length - 1; i > 0; i--) {
+    // console.log(arr)
+    swap(arr, i, 0)
+    len--
+    heapify(arr, 0)
+  }
 }
 
 // 基数排序
