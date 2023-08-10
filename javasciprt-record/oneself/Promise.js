@@ -91,11 +91,13 @@ class MyPromise {
       } else {
         const result = []
         const length = promises.length
+        let count = 0
         for(let i = 0; i < length; i++) {
           promises[i].then(
             value => {
               result[i] = value
-              if (++i === length) resolve(result)
+              count++
+              if (count === length) resolve(result)
             },
             error => reject(error)
           )
@@ -127,12 +129,14 @@ class MyPromise {
       } else {
         const result = []
         const length = promises.length
+        let count = 0
         for (let i = 0; i < length; i++) {
           promises[i].then(
             value => resolve(value),
             error => {
               result[i] = error
-              if (++i === length) reject(result)
+              count++
+              if (count === length) reject(result)
             })
         }
       }
