@@ -48,3 +48,38 @@ Function.prototype.myBind = function () {
 
     return bound
 }
+
+Function.prototype.newBind = function () {
+    const _this = this
+    const args = Array.prototype.slice.call(arguments)
+    const newThis = args.shift()
+
+    return function () {
+        return _this.newApply(newThis, args)
+    }
+}
+
+Function.prototype.newApply = function (context) {
+    if (typeof this !== 'function') {
+        throw new Error('type error')
+    }
+    context = context || window
+    context.fn = this
+    const result = arguments[1] ? context.fn(...arguments[1]) : context.fn()
+    delete context.fn
+
+    return result    
+}
+
+Function.prototype.newCall = function (context) {
+    if (typeof this !== 'function') {
+        throw new Error('type error')
+    }
+    context = context || window
+    context.fn = this
+    const args = Array.from(arguments).slice(1)
+    const result = arguments[1] ? context.fn(...args) : context.fn()
+    delete context.fn
+
+    return result
+}
