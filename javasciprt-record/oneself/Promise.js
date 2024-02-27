@@ -1,34 +1,44 @@
-class MyPromise {
-  state = 'pending'
-  value = ''
-  error = ''
-  resolveCallbacks = []
-  rejectCallbacks = []
+const PENDING = 'pending'
+const FULFILLED = 'fulfilled'
+const REJECTED = 'rejected'
 
-  constructor(fn) {
+class MyPromise {
+  state = PENDING
+  value = ''
+  reason
+  fulfilledCallbacks = []
+  rejectedCallbacks = []
+
+  constructor(executor) {
     
     const resolve = value => {
-      if (this.state === 'pending') {
-        this.state = 'fulfilled'
-        this.value = value
-        this.resolveCallbacks.forEach(callback => {
-          callback(this.value)
+      if (this.state === PENDING) {
+        queueMicrotask(() => {
+          if (this.state !== PENDING) return
+          this.state = FULFILLED
+          this.value = value
+          this.fulfilledCallbacks.forEach(callback => {
+            callback(this.value)
+          })
         })
       }
     }
 
-    const reject = error => {
-      if (this.state === 'pending') {
-        this.state = 'rejected'
-        this.error = error
-        this.rejectCallbacks.forEach(callback => {
-          callback(this.error)
+    const reject = reason => {
+      if (this.state === PENDING) {
+        queueMicrotask(() => {
+          if (this.state !== PENDING) return
+          this.state = REJECTED
+          this.reason = reason
+          this.rejectedCallbacks.forEach(callback => {
+            callback(this.reason)
+          })
         })
       }
     }
 
     try {
-      fn(resolve, reject)
+      executor(resolve, reject)
     } catch (error) {
       reject(error)
     }
@@ -37,43 +47,53 @@ class MyPromise {
   then(resolveEvent, rejectEvent) {
     if (typeof resolveEvent !== 'function') resolveEvent = value => value
     if (typeof rejectEvent !== 'function') rejectEvent = error => { throw error }
-    const subPromise = new MyPromise((resolve, reject) => {
-      switch (this.state) {
-        case 'pending': setTimeout(() => {
-          this.resolveCallbacks.push(resolveEvent)
-          this.rejectCallbacks.push(rejectEvent)
-        }, 0);
-        break;
-        case 'fulfilled': setTimeout(() => {
+    return new MyPromise((resolve, reject) => {
+      if (this.state === PENDING) {
+        // this.fulfilledCallbacks.push(resolveEvent)
+        // this.rejectedCallbacks.push(rejectEvent)
+        // 上面写法如果 then 方法不传第二个参数 错误不会被 catch 捕获
+        this.fulfilledCallbacks.push(() => {
           try {
-            const result = resolveEvent(this.value)
-            resolve(result)
-          } catch (error) {
-            reject(error)
-          }
-        }, 0);
-        break;
-        case 'rejected': setTimeout(() => {
+          const result = resolveEvent(this.value)
+          resolve(result)
+        } catch (error) {
+          reject(error)
+        }
+        })
+        this.rejectedCallbacks.push(() => {
           try {
-            const result = rejectEvent(this.error)
-            resolve(result)
-          } catch (error) {
-            reject(error)
-          }
-        }, 0);
-        break;
+          const result = rejectEvent(this.reason)
+          resolve(result)
+        } catch (error) {
+          reject(error)
+        }
+        })
+      }
+      if (this.state === FULFILLED) {
+        try {
+          const result = resolveEvent(this.value)
+          resolve(result)
+        } catch (error) {
+          reject(error)
+        }
+      }
+      if (this.state === REJECTED) {
+        try {
+          const result = rejectEvent(this.reason)
+          resolve(result)
+        } catch (error) {
+          reject(error)
+        }
       }
     })
-    return subPromise
   }
 
   catch(rejectEvent) {
     return this.then(null, rejectEvent)
   }
 
-  finally(fn) {
-    fn()
-    return this.then(value => value, error => { throw error })
+  finally(callback) {
+    return this.then(callback, callback)
   }
 
   static resolve(value) {
@@ -84,7 +104,7 @@ class MyPromise {
     return new MyPromise((_, reject) => reject(error))
   }
 
-  all(promises) {
+  static all(promises) {
     return new MyPromise((resolve, reject) => {
       if (promises.length === 0) {
         resolve([])
@@ -106,7 +126,7 @@ class MyPromise {
     })
   }
 
-  catch(promises) {
+  static race(promises) {
     return new MyPromise((resolve, reject) => {
       if (promises.length === 0) {
         resolve([])
@@ -122,7 +142,7 @@ class MyPromise {
     })
   }
 
-  any(promises) {
+  static any(promises) {
     return new MyPromise((resolve, reject) => {
       if (promises.length === 0) {
         resolve([])
@@ -142,10 +162,59 @@ class MyPromise {
       }
     })
   }
+
+  static allSettled(promises) {
+    return new Promise((resolve, reject) => {
+      if (promises.length === 0) {
+        resolve([])
+      } else {
+        const result = []
+        const length = promises.length
+        let count = 0
+        for (let i = 0; i < length; i++) {
+          promises[i].then(
+            value => {
+              count++
+              result[i] = { status: 'fulfilled', value }
+            },
+            error => {
+              count++
+              result[i] = { status: 'rejected', reason: error }
+            }
+          )
+            .finally(() => {
+            if (count === length) resolve(result)
+          })
+        }
+      }
+    })
+  }
 }
 
 // const myPromise = new MyPromise((resolve, reject) => {
 //   const random = Math.random()
 //   random > 0.2 ? resolve(random) : reject(random)
 // })
-// .then(res => console.log(res), e => console.error(e))
+//   .then(res => console.log(res), e => console.error(e))
+
+// const p0 = new MyPromise((resolve, reject) => setTimeout(() => {
+//   const random = Math.random()
+//   random > 0.6 ? resolve(random) : reject(random)
+// }, 600))
+const p1 = MyPromise.resolve(1)
+const p2 = MyPromise.reject(2)
+const p3 = new MyPromise(resolve => setTimeout(resolve, 600, 3))
+const p4 = MyPromise.all([p1, p2, p3])
+const p5 = MyPromise.race([p2, p1, p3])
+const p6 = MyPromise.any([p2, p1, p3])
+const p7 = MyPromise.allSettled([p2, p1, p3])
+// new MyPromise((resolve, reject) => reject(123)).then(alert).catch(alert)
+// p0.then(console.log, console.error)
+// p1.then(console.log)
+// p2.catch(console.error)
+// p4.then(console.log, console.error).catch(console.error)
+// console.log('p4', p4.then(console.log).catch(alert))
+// console.log('p5', p5.then(console.log).catch(alert))
+// console.log('p6', p6.then(console.log).catch(alert))
+// console.log('p7', p7.then(console.log).catch(alert))
+
