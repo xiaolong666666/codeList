@@ -1,8 +1,6 @@
 function inheritPrototype(subType, superType) {
-  var prototype = Object(superType.prototype)
-  console.log(prototype)
-  prototype.constructor = subType
-  subType.prototype = prototype
+  subType.prototype = Object(superType.prototype)
+  subType.prototype.constructor = subType
 }
 
 function Cars() {
@@ -34,4 +32,5 @@ Car.prototype.sayNumber = function () {
 }
 
 var instance = new Car()
+console.log(instance)
 console.log(instance.sayNumber()()())

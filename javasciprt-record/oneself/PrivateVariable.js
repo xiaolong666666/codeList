@@ -1,3 +1,5 @@
+// 变量私有化
+
 function createStack() {
   const items = []
   return {

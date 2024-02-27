@@ -22,6 +22,7 @@ const deepClone = (obj) => {
     return target
 }
 
+
 let obj = {
     name: 'xl',
     age: 18,
