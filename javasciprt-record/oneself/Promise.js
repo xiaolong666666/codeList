@@ -22,7 +22,7 @@ class MyPromise {
     
     const resolve = value => {
       if (this.state === PENDING) {
-        queueMicrotask(() => {
+        queueMicrotask(() => {  // queueMicrotask: 将微任务加入队列以在控制返回浏览器的事件循环之前的安全时间执行callback (类似创建一个微任务)
           if (this.state !== PENDING) return
           this.state = FULFILLED
           this.value = value
