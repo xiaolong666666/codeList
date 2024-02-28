@@ -2,9 +2,18 @@ const PENDING = 'pending'
 const FULFILLED = 'fulfilled'
 const REJECTED = 'rejected'
 
+const onExecutorWithTryCatch = (onExecutor, params, resolve, reject) => {
+  try {
+    const result = onExecutor(params)
+    resolve(result)
+  } catch (error) {
+    reject(error)
+  }
+}
+
 class MyPromise {
   state = PENDING
-  value = ''
+  value
   reason
   fulfilledCallbacks = []
   rejectedCallbacks = []
@@ -45,45 +54,25 @@ class MyPromise {
   }
 
   then(resolveEvent, rejectEvent) {
-    if (typeof resolveEvent !== 'function') resolveEvent = value => value
-    if (typeof rejectEvent !== 'function') rejectEvent = error => { throw error }
+    resolveEvent = resolveEvent || (value => value)
+    rejectEvent = rejectEvent || (error => { throw error })
     return new MyPromise((resolve, reject) => {
       if (this.state === PENDING) {
         // this.fulfilledCallbacks.push(resolveEvent)
         // this.rejectedCallbacks.push(rejectEvent)
         // 上面写法如果 then 方法不传第二个参数 错误不会被 catch 捕获
         this.fulfilledCallbacks.push(() => {
-          try {
-          const result = resolveEvent(this.value)
-          resolve(result)
-        } catch (error) {
-          reject(error)
-        }
+          onExecutorWithTryCatch(resolveEvent, this.value, resolve, reject)
         })
         this.rejectedCallbacks.push(() => {
-          try {
-          const result = rejectEvent(this.reason)
-          resolve(result)
-        } catch (error) {
-          reject(error)
-        }
+          onExecutorWithTryCatch(rejectEvent, this.reason, resolve, reject)
         })
       }
       if (this.state === FULFILLED) {
-        try {
-          const result = resolveEvent(this.value)
-          resolve(result)
-        } catch (error) {
-          reject(error)
-        }
+        onExecutorWithTryCatch(resolveEvent, this.value, resolve, reject)
       }
       if (this.state === REJECTED) {
-        try {
-          const result = rejectEvent(this.reason)
-          resolve(result)
-        } catch (error) {
-          reject(error)
-        }
+        onExecutorWithTryCatch(rejectEvent, this.reason, resolve, reject)
       }
     })
   }
@@ -201,8 +190,11 @@ class MyPromise {
 //   const random = Math.random()
 //   random > 0.6 ? resolve(random) : reject(random)
 // }, 600))
-const p1 = MyPromise.resolve(1)
-const p2 = MyPromise.reject(2)
+
+// const p1 = MyPromise.resolve(1)
+const p1 = new MyPromise(resolve => setTimeout(resolve, 400, 1))
+// const p2 = MyPromise.reject(2)
+const p2 = new MyPromise((_, reject) => setTimeout(reject, 200, 2))
 const p3 = new MyPromise(resolve => setTimeout(resolve, 600, 3))
 const p4 = MyPromise.all([p1, p2, p3])
 const p5 = MyPromise.race([p2, p1, p3])
@@ -212,7 +204,7 @@ const p7 = MyPromise.allSettled([p2, p1, p3])
 // p0.then(console.log, console.error)
 // p1.then(console.log)
 // p2.catch(console.error)
-// p4.then(console.log, console.error).catch(console.error)
+// p4.then(console.log, console.error).catch(alert)
 // console.log('p4', p4.then(console.log).catch(alert))
 // console.log('p5', p5.then(console.log).catch(alert))
 // console.log('p6', p6.then(console.log).catch(alert))

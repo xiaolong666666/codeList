@@ -64,9 +64,10 @@ Function.prototype.newApply = function (context) {
         throw new Error('type error')
     }
     context = context || window
-    context.fn = this
-    const result = arguments[1] ? context.fn(...arguments[1]) : context.fn()
-    delete context.fn
+    const key = Symbol()
+    context.__proto__[key] = this
+    const result = arguments[1] ? context.__proto__[key](...arguments[1]) : context.__proto__[key]()
+    delete context.__proto__[key]
 
     return result    
 }
