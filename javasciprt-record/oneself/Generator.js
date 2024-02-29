@@ -76,8 +76,26 @@ function getFibonacciSequence(n) {
   return result
 }
 
-console.log(getFibonacciSequence(10))
+// console.log(getFibonacciSequence(10))
 
+// 模拟生成迭代器对象
+const createIteratorObj = (list = []) => {
+  const createIteratorWithSymbolIterator = (list = []) =>
+    ({
+      member: list,
+      count: 0,
+      [Symbol.iterator]: function () {
+        return {
+          next: () => ({ value: this.member[this.count++], done: this.count > this.member.length })
+        }
+      }
+  })
+  
+  return createIteratorWithSymbolIterator(list)[Symbol.iterator]()
+}
 
-
-
+const list = ['a', 'b', 'c', 'd']
+const iterator = createIteratorObj(list)
+for (let i = 0; i <= list.length; i++) {
+  console.log(iterator.next())
+}
