@@ -18,22 +18,27 @@
     </style>
     <script>
         window.onload = function() {
+
+            const scrollListener = (dom) => {
+                dom.addEventListener('scroll', function() {
+                    const clientHeight = dom.clientHeight
+                    const scrollTop = dom.scrollTop
+                    const scrollHeight = dom.scrollHeight
+                    if (clientHeight + scrollTop >= scrollHeight) {
+                        console.log('到达底部')
+                    }
+                })
+            }
+
             const box = document.querySelector('.box')
-            box.addEventListener('scroll', function() {
-                const clientHeight = box.clientHeight
-                const scrollTop = box.scrollTop
-                const scrollHeight = box.scrollHeight
-                if (clientHeight + scrollTop === scrollHeight) {
-                    console.log('box 到达底部')
-                }
-            })
+            scrollListener(box)
 
             const body = document.documentElement
             window.addEventListener('scroll', function() {
                 const clientHeight = body.clientHeight
                 const scrollTop = body.scrollTop
                 const scrollHeight = body.scrollHeight
-                if (clientHeight + scrollTop === scrollHeight) {
+                if (clientHeight + scrollTop >= scrollHeight) {
                     console.log('body 到达底部')
                 }
             })

@@ -11,7 +11,7 @@
 预加载: 通过js实现图片预加载/插入到css中，随css一起加载
     作用:
         图片体积小,js实现与加载
-        图片转换成base64编码,插入到css中，随css一起加载,css文件一般都放到中
+        图片转换成base64编码,插入到css中，随css一起加载,css文件一般都放到顶部
     实现:
         var img = new Image()
         img.src="...."
