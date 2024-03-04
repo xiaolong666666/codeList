@@ -1,5 +1,7 @@
+// 判断一个对象是否为空
+
 // 利用 for in 
-// let isNullObject = (obj) => {
+// let isNull = (obj) => {
 //     for (let i in obj) {
 //         return false
 //     }
@@ -7,14 +9,14 @@
 // }
 
 // 利用 JSON.stringify
-// let isNullObject = (obj) =>
+// let isNull = (obj) =>
 //     JSON.stringify(obj) === '{}'
 
 // 利用 Object.keys
-let isNullObject = (obj) => 
+let isNull = (obj) => 
     Object.keys(obj).length === 0
 
 let obj = {}
 
-const result = isNullObject(obj)
+const result = isNull(obj)
 console.log({ result })
