@@ -1,10 +1,10 @@
-const shallowClone = (obj) => {
+const cloneShallow = (obj) => {
     // return Object.assign({}, obj)   // Tips: 当 obj 只有一层时是深拷贝
     return { ...obj }
 }
 
 // JSON.parse(JSON.stringify(obj)) 也可以实现深拷贝，不过不能拷贝函数
-// const deepClone = (obj) => {
+// const cloneDeep = (obj) => {
 //     const result = JSON.parse(JSON.stringify(obj))
 //     for (let i in obj) {
 //         if (x[i] === undefined || typeof x[i] === 'function') {
@@ -13,11 +13,11 @@ const shallowClone = (obj) => {
 //     }
 // }
 
-const deepClone = (obj) => {
+const cloneDeep = (obj) => {
     if (typeof obj !== 'object') return obj
     const target = Array.isArray(obj) ? [] : {}
     for (let i in obj) {
-        target[i] = deepClone(obj[i])
+        target[i] = cloneDeep(obj[i])
     }
     return target
 }
@@ -34,6 +34,6 @@ let obj = {
 }
 
 const assignment_data = obj
-const shallow_data = shallowClone(obj)
-const deep_data = deepClone(obj)
+const shallow_data = cloneShallow(obj)
+const deep_data = cloneDeep(obj)
 console.log({ obj, shallow_data, deep_data })
