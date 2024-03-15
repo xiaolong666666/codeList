@@ -6,7 +6,20 @@ const promisify = (fn) =>
         callback()
         resolve()
       }, ...rest)
-    })  
+    })
+
+// callback 适配器
+// const promisify = (f) =>
+//   (...args) =>  // return a wrapper-function (*)
+//      new Promise((resolve, reject) => {
+//       f(...args, (err, data) => {
+//         if (err) {
+//           reject(err);
+//         } else {
+//           resolve(data);
+//         }
+//       })
+//     });
 
 const fn = promisify(setTimeout)
 let x = async () => {
