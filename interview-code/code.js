@@ -24,3 +24,31 @@ for(i=1;i<101;i++){
     defaultSearch.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => q[k] = v)
     console.log(q)
 })() */
+
+// 判断数组&对象
+/* (() => {
+    const isArray = (o) => {
+        Object.prototype.toString.call(o) === '[object Array]';
+        Array.isArray(o)
+        o instanceof Array
+    }
+    const isObject = (o) => {
+        Object.prototype.toString.call(o) === '[object Object]';
+        typeof o === 'object' && !(o instanceof Array)
+    }
+})() */
+
+// mapping 双向绑定
+/* (() => {
+    const createMapping = (m = {}) => {
+        for (let i = 0; i < 26; i++) {
+            let char = String.fromCharCode(i + 65)  // 通过数字 => 字符     字符 => 数字（char.charCodeAt()）
+            console.log(char)
+            m[m[char] = i] = char
+        }
+        return m
+    }
+    const mapping = createMapping()
+    console.log(mapping)
+})() */
+

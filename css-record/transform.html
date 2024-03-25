@@ -29,6 +29,21 @@
       transition: transform .5s ease-in;
     }
 
+    .box-visible-hidden {
+      position: relative;
+      left: 500px;
+      top: 50px;
+      width: 100px;
+      height: 100px;
+      background-color: #08f;
+      opacity: 1;
+      transition: all .6s linear;
+    }
+
+    .box-visible-hidden:hover {
+      opacity: 0;
+    }
+
     /* 倾斜 */
     /* .skew:hover {
       transform: skew(20deg, 20deg);
@@ -133,10 +148,45 @@
         transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
       }
     }
+
+    .juice {
+      position: fixed;
+      right: 160px;
+      bottom: 60px;
+      width: 90px;
+      height: 180px;
+      background-color: #F80;
+    }
+
+    .juice::before {
+      position: absolute;
+      left: -60px;
+      top: -120px;
+      content: '';
+      width: 200px;
+      height: 200px;
+      border-radius: 100px 140px 60px 50px;
+      background-color: #fff;
+      animation: rotate 2s ease-in 0s;
+      animation-fill-mode: backwards;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        top: -120px;
+        transform: rotate(0deg);
+      }
+      to {
+        top: -80px;
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="box skew scale rotate translate"></div>
+  <div class="box-visible-hidden"></div>
   <div class="wrapper">
     <div class="pic-wrapper rotate-left">
       <img src="../img/left.jpg" alt="我的小可爱" width="150" height="150" />
@@ -154,5 +204,6 @@
     <div class="item"></div>
     <div class="item"></div>
   </div>
+  <div class="juice">123</div>
 </body>
 </html>

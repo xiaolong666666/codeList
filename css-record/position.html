@@ -11,9 +11,26 @@
 			padding: 0px;  
 		}
     #title{
+      position: relative;
 			width: 100%;
 			height: 100px;
 			background-color: #f80;
+		}
+    #title-ul{
+      position: absolute;
+      display: inline-block;
+      left: 50%;
+      top: 50px;
+      transform: translate(-50%, -50%);
+      letter-spacing: -8px;
+      /* 解决li间隔 */
+		}
+
+    #title-ul li{
+			display: inline-block;
+      background-color: #09f;
+      letter-spacing: normal !important;
+      /* 解决li间隔 */
 		}
 		#top{
       position: sticky;
@@ -67,10 +84,16 @@
 </head>
 <body>
   <div id="title">
-  
+    <ul id="title-ul">
+      <li>菜单[1]</li>
+      <li>菜单[2]</li>
+      <li>菜单[3]</li>
+      <li>菜单[4]</li>
+      <li>菜单[5]</li>
+    </ul>
   </div>
   <div id="top" class="top">
-  
+    
   </div>
   <p>1</p>
   <p>2</p>
