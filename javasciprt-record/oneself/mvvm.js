@@ -105,7 +105,7 @@ class Watcher {
     Dep.target = null;
 
     this.deps.forEach((oldDep) => {
-      const notExistInNewDeps = !this.depIds.has(oldDep.id);
+      const notExistInNewDeps = !this.newDepIds.has(oldDep.id);
       if (notExistInNewDeps) {
         oldDep.removeSub(this);
       }
