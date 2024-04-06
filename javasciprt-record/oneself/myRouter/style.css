@@ -1,0 +1,40 @@
+.nav-list {
+  display: flex;
+}
+
+.nav-list > .nav-item {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 200px;
+}
+
+.main-content > .main-box {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.main-content > .main-box > div {
+  cursor: pointer;
+}
+
+[data-component-name] {
+  display: none !important;
+}
+
+.active {
+  display: block !important;
+}
+
+.footer {
+  text-align: center;
+}

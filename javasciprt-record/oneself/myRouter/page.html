@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav-list">
+      <div class="nav-item" onclick="router.push({ name: 'China' })">语文</div>
+      <div class="nav-item" onclick="router.push({ name: 'Math' })">数学</div>
+      <div class="nav-item" onclick="router.push({ name: 'English' })">
+        英语
+      </div>
+    </nav>
+    <div class="main-content">
+      <div class="main-box" data-component-name="China">
+        <h3>语文内容</h3>
+        <div onclick="router.push({ name: 'Math' })">go 数学 module</div>
+      </div>
+      <div class="main-box" data-component-name="Math">
+        <h3>数学内容</h3>
+        <div onclick="router.push({ name: 'English' })">go 英语 module</div>
+      </div>
+      <div class="main-box" data-component-name="English">
+        <h3>英语内容</h3>
+        <div onclick="router.push({ name: 'China' })">go 语文 module</div>
+      </div>
+    </div>
+    <footer class="footer">
+      <button onclick="router.back()">后退</button>
+      <button onclick="router.forward()">前进</button>
+    </footer>
+  </body>
+  <!-- <script src="./hashRouter.js"></script> -->
+  <script src="./browserRouter.js"></script>
+  <script>
+    window.router = new Router({
+      routes: [
+        {
+          path: "/China",
+          name: "China",
+        },
+        {
+          path: "/Math",
+          name: "Math",
+        },
+        {
+          path: "/English",
+          name: "English",
+        },
+      ],
+    });
+  </script>
+</html>
