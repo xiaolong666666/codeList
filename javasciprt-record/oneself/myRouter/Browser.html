@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      a {
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      class BrowserRouter {
+        constructor() {
+          this.routes = {};
+        }
+
+        seed(path, cb) {
+          this.routes[path] = cb;
+        }
+
+        go(path) {
+          history.pushState({ path }, undefined, path);
+          this.routes[path]();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li><a onclick="onGo('/list')">列表页</a></li>
+      <li><a onclick="onGo('/news')">新闻页</a></li>
+      <li><a onclick="onGo('/about')">关于我们</a></li>
+    </ul>
+    <div id="container"></div>
+  </body>
+  <script>
+    const router = new BrowserRouter();
+
+    const onGo = (path) => {
+      router.go(path);
+    };
+
+    // path element => useRoutes
+    router.seed("/list", () => {
+      document.getElementById("container").innerHTML = "列表页";
+    });
+    router.seed("/news", () => {
+      document.getElementById("container").innerHTML = "新闻页";
+    });
+    router.seed("/about", () => {
+      document.getElementById("container").innerHTML = "关于我们";
+    });
+    router.go("/list");
+  </script>
+</html>
