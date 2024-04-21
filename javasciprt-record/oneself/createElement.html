@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function formatDOM(dom) {
+        if (
+          typeof dom === "object" &&
+          dom?.nodeType === 1 &&
+          !dom?.constructor?.isPrototypeOf(HTMLElement)
+        )
+          return dom;
+        return document.createTextNode(dom);
+      }
+
+      function createElement(type, props, ...children) {
+        let el = document.createElement(type.toLowerCase());
+        for (let prop in props) {
+          el.setAttribute(prop, props[prop]);
+        }
+        children.forEach((child) => {
+          el.appendChild(formatDOM(child));
+        });
+        return el;
+      }
+      const p1 = createElement("p", { id: "p1", onClick: "alert('p1')" }, "p1");
+      const p2 = createElement(
+        "p",
+        { id: "p2", ondblClick: "alert('p2')" },
+        "p2"
+      );
+      const div = createElement(
+        "div",
+        {
+          id: "app",
+          style: "background-color: #F80; color: #FFF",
+        },
+        ...[p1, p2]
+      );
+      console.log(div);
+      document.body.appendChild(div);
+    </script>
+  </body>
+</html>
