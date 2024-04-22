@@ -188,3 +188,112 @@ function xlBigMul(a, b) {
   }
   return depthList.reduce((a, b) => xlBigAdd(a, b), "");
 }
+
+// n 个小朋友围成一个圈，数到 idx 的人退出，最后剩下第几个小朋友
+function xlFriendCircle(idx, n) {
+  const arr = [...new Array(n).keys()].map((i) => ({ id: i + 1 }));
+  let current = 0;
+  while (arr.length > 1) {
+    for (let v of arr) {
+      current++;
+      v["number"] = current % idx || idx;
+    }
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i]["number"] === idx) {
+        arr.splice(i, 1);
+        i--;
+      }
+    }
+  }
+  return arr[0]["id"];
+}
+
+// 斐波那契数列
+function xlFibonacci(n) {
+  function* gen() {
+    let i = 1;
+    let j = 1;
+    while (true) {
+      yield i;
+      [i, j] = [j, i + j];
+    }
+  }
+
+  let result = [];
+  let count = 0;
+  for (let v of gen()) {
+    count++;
+    result.push(v);
+    if (count === n) break;
+  }
+
+  return result;
+}
+
+// 有序二维数组中查找是否有 target
+function xlFindIn2DArray(arr, target) {
+  if (arr.length === 0) return false;
+  if (arr[0].length === 0) return false;
+
+  let row = 0;
+  let col = arr[0].length - 1;
+
+  while (row < arr.length && col >= 0) {
+    if (arr[row][col] === target) {
+      return true;
+    } else if (arr[row][col] > target) {
+      col--;
+    } else {
+      row++;
+    }
+  }
+
+  return false;
+}
+
+// 异步加载图片
+function xlLoadImageAsync(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+// 最长不重复字符串
+function xlLongestNoRepeatString(str) {
+  const map = new Map();
+  let start = 0;
+  let end = 0;
+  let maxLen = 0;
+
+  while (end < str.length) {
+    if (map.has(str[end])) {
+      start = Math.max(start, map.get(str[end]) + 1);
+    }
+    map.set(str[end], end);
+    maxLen = Math.max(maxLen, end - start + 1);
+    end++;
+  }
+
+  return maxLen;
+}
+
+// 判断是否存在循环引用
+function xlIsCircularReference(obj) {
+  const map = new WeakMap();
+
+  function isCircularReference(obj) {
+    if (typeof obj !== "object" || obj === null) return false;
+    if (map.has(obj)) return true;
+    map.set(obj, true);
+    for (let key in obj) {
+      if (isCircularReference(obj[key])) return true;
+    }
+    map.delete(obj);
+    return false;
+  }
+
+  return isCircularReference(obj);
+}
