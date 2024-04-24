@@ -1,65 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        .box {
-            width: 200px;
-            height: 58px;
-            border: 1px solid #F0F0F0;
-            padding: 12px;
-        }
+      .box {
+        width: 200px;
+        height: 58px;
+        border: 1px solid #f0f0f0;
+        padding: 12px;
+      }
 
-        .ellipsis {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+      .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-        /* .many {
+      /* .many {
             white-space: normal;
-            display: -webkit-box;
+            display: -webkit-box; 弹性伸缩盒子模型
             -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            -webkit-box-orient: vertical; 从上往下垂直排列
         } */
 
-        .many {
-            position: relative;
-            line-height: 20px;
-            height: 50px;
-            overflow: hidden;
-            white-space: normal;
-        }
+      .many {
+        position: relative;
+        line-height: 20px;
+        /* 必须需要知道行高 => js 处理 ｜ 兼容性处理 */
+        height: 50px;
+        overflow: hidden;
+        white-space: normal;
+      }
 
-        .many::after {
-            content: '...';
-            position: absolute;
-            background-color: white;
-            bottom: 0;
-            right: 0;
-            padding: 0 18px 0 6px;
-        }
+      .many::after {
+        content: "...";
+        position: absolute;
+        background-color: white;
+        bottom: 0;
+        right: 0;
+        padding: 0 18px 0 6px;
+      }
 
-        .capitalize{
-            text-transform: capitalize;
-        }
+      .capitalize {
+        text-transform: capitalize;
+      }
     </style>
-    <script>
-        addEventListener('copy', (e) => {
-            e.preventDefault();
-            e.clipboardData.setData('text', '我拦截了copy的数据')
-        })
-    </script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="box ellipsis many capitalize">
-            my name is tom 我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本
-        </div>
-        <ruby>使用ruby标签<rt>shi yong ruby bian qian</rt></ruby>
-        
+      <div class="box ellipsis many capitalize">
+        my name is tom
+        我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本我是文本
+      </div>
     </div>
-</body>
+  </body>
 </html>

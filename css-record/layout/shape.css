@@ -1,0 +1,158 @@
+/* 三角形 */
+/* #region */
+.triangle {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.triangle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-top: 20px solid #f80;
+}
+/* #endregion */
+
+/* 梯形 */
+/* #region */
+.trapezium {
+  position: fixed;
+  left: 100px;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #f80;
+}
+
+.trapezium::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40px;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-right: 20px solid #f80;
+  border-bottom: 20px solid #f80;
+}
+
+.trapezium::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-left: 20px solid #f80;
+  border-bottom: 20px solid #f80;
+}
+/* #endregion */
+
+/* 平行四边形 */
+/* #region */
+.parallelogram {
+  position: fixed;
+  left: 260px;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #f80;
+}
+
+.parallelogram::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40px;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-top: 20px solid #f80;
+  border-right: 20px solid #f80;
+}
+
+.parallelogram::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-left: 20px solid #f80;
+  border-bottom: 20px solid #f80;
+}
+/* #endregion */
+
+/* 扇形 */
+/* #region */
+.sector {
+  position: fixed;
+  left: 440px;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #f80;
+  border-radius: 50%;
+}
+
+.sector::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-top: 20px solid #fff;
+  border-right: 20px solid #fff;
+}
+
+.sector::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 0;
+  height: 0;
+  border: none;
+  border: 20px solid transparent;
+  border-left: 20px solid #fff;
+  border-top: 20px solid #fff;
+}
+/* #endregion */
+
+/* 三角形边 */
+/* #region */
+.triangle-edge {
+  position: fixed;
+  left: 0;
+  top: 100px;
+  content: "";
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top: 20px solid #f80;
+}
+
+.triangle-edge::before {
+  position: absolute;
+  left: -16px;
+  top: -20px;
+  content: "";
+  border: 16px solid transparent;
+  border-top: 16px solid #fff;
+}
+/* #endregion */

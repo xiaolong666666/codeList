@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: #f80;
+}
+
+.box {
+  background-color: #09f;
+}
+
+/* 自我拉扯 */
+/* #region */
+/* .box {
+  width: min-content;
+  height: min-content;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+} */
+/* #endregion */
+
+/* 自我移动 */
+/* #region */
+/* .box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+} */
+/* #endregion */
+
+/* flex */
+/* #region */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* #endregion */

@@ -1,0 +1,194 @@
+/* 双列布局 */
+/* 浮动 + 激活 BFC 不重叠 */
+/* #region */
+/* .left {
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+
+.right {
+  overflow: hidden;
+  height: 200px;
+  background-color: #f80;
+} */
+/* #endregion */
+
+/* 浮动 + width: auto */
+/* #region */
+/* .container {
+  overflow: hidden;
+  height: 200px;
+}
+.container > .left {
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .right {
+  width: auto;
+  height: 200px;
+  margin-left: 200px;
+  background-color: #f80;
+} */
+/* #endregion */
+
+/* flex */
+/* #region */
+/* .container {
+  display: flex;
+  height: 200px;
+}
+.container > .left {
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .right {
+  flex: 1;
+  height: 200px;
+  background-color: #f80;
+} */
+/* #endregion */
+
+/* 三列布局 */
+/* 浮动 + 激活 BFC 不重叠 */
+/* #region */
+/* .container {
+  height: 200px;
+}
+.container > .left {
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .right {
+  float: right;
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .main {
+  overflow: hidden;
+  height: 200px;
+  background-color: #f80;
+} */
+/* #endregion */
+
+/* 绝对定位 */
+/* #region */
+/* .container {
+  position: relative;
+  height: 200px;
+}
+.container > .left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .main {
+  margin: 0 200px;
+  height: 200px;
+  background-color: #f80;
+} */
+/* #endregion */
+
+/* flex */
+/* #region */
+/* .container {
+  display: flex;
+  height: 200px;
+}
+.container > .left {
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .right {
+  width: 200px;
+  height: 200px;
+  background-color: #0bf;
+}
+.container > .main {
+  flex: 1;
+  height: 200px;
+  background-color: #f80;
+} */
+/* #endregion */
+
+/* 圣杯 */
+/* #region */
+.container {
+  height: 200px;
+  padding: 0 200px;
+}
+.container > .main {
+  float: left;
+  width: 100%;
+  height: 200px;
+  background-color: #f80;
+}
+.container > .left {
+  float: left;
+  position: relative;
+  left: -100%;
+  width: 200px;
+  height: 200px;
+  margin-left: -200px;
+  background-color: #0bf;
+}
+.container > .right {
+  float: right;
+  position: relative;
+  right: -200px;
+  width: 200px;
+  height: 200px;
+  margin-left: -200px;
+  background-color: #0bf;
+}
+/* #endregion */
+
+/* 双飞翼 */
+/* #region */
+/* .container {
+  height: 200px;
+}
+.wrapper {
+  float: left;
+  width: 100%;
+  height: 200px;
+  background-color: #f80;
+}
+.main {
+  height: 200px;
+  margin: 0 200px;
+}
+.container > .left {
+  float: left;
+  width: 200px;
+  height: 200px;
+  margin-left: -100%;
+  background-color: #0bf;
+}
+.container > .right {
+  float: left;
+  width: 200px;
+  height: 200px;
+  margin-left: -200px;
+  background-color: #0bf;
+} */
+/* #endregion */
