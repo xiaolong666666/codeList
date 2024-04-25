@@ -43,9 +43,19 @@ body {
 
 /* flex */
 /* #region */
-.container {
+/* .container {
   display: flex;
   justify-content: center;
   align-items: center;
+} */
+/* #endregion */
+
+/* flex + auto */
+/* #region */
+.container {
+  display: flex;
+}
+.box {
+  margin: auto;
 }
 /* #endregion */
