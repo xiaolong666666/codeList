@@ -4,12 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      ul:empty::after {
+        content: attr(data-placeholder);
+      }
+
+      img:not([src]),
+      img[src=""] {
+        outline: 2px solid #f80;
+      }
+    </style>
   </head>
   <body>
+    <ul data-placeholder="ul-placeholder"></ul>
+    <hr />
+    <img src="" alt="phone" />
+    <hr />
     <ruby>使用ruby标签<rt>shi yong ruby bian qian</rt></ruby>
+    <hr />
     <details>
       <summary>title</summary>
       content
     </details>
+    <hr />
+    数据列表
+    <input list="name_list" disabled />
+    <datalist id="name_list">
+      <option value="tom"></option>
+      <option value="jarry"></option>
+      <option value="susan"></option>
+    </datalist>
+    <hr />
   </body>
 </html>

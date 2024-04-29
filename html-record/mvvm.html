@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        var reactive = Object.create(null);
+        var input = document.querySelector("input");
+        var view = document.querySelector(".view");
+        input.oninput = function (e) {
+          reactive.text = e.target.value;
+        };
+
+        Object.defineProperty(reactive, "text", {
+          configurable: true,
+          enumerable: true,
+          get: function () {
+            console.log("getter");
+          },
+          set: function (value) {
+            console.log("setter");
+            view.innerHTML = value;
+          },
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <div class="mvvm">
+      <input type="text" />
+      <div class="view"></div>
+    </div>
+  </body>
+</html>

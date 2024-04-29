@@ -49,16 +49,31 @@ const tree2Array = (tree) => {
   // }
   // return result
 
-  return Array.isArray(tree)
-    ? tree.reduce(
-        (total, current) =>
-          total.concat(
-            Array.isArray(current.children) ? tree2Array(current.children) : [],
-            delete current.children && current
-          ),
-        []
-      )
-    : [tree];
+  // return Array.isArray(tree)
+  //   ? tree.reduce(
+  //       (total, current) =>
+  //         total.concat(
+  //           Array.isArray(current.children) ? tree2Array(current.children) : [],
+  //           delete current.children && current
+  //         ),
+  //       []
+  //     )
+  //   : [tree];
+
+  const result = [];
+  const dfs = (node) => {
+    if (!Array.isArray(node)) return;
+    node.forEach((child) => {
+      if (child.children) {
+        dfs(child.children);
+        delete child.children;
+      }
+      result.push(child);
+    });
+  };
+
+  dfs(tree);
+  return result;
 };
 
 const array2tree = (array) => {
@@ -96,8 +111,8 @@ const array2tree = (array) => {
   return result;
 };
 
-// const outputArray = tree2Array(inputTree)
-// console.log('outputArray', outputArray)
+const outputArray = tree2Array(inputTree);
+console.log("outputArray", outputArray);
 
-const outputTree = array2tree(inputArray);
-console.log("outputTree", outputTree);
+// const outputTree = array2tree(inputArray);
+// console.log("outputTree", outputTree);

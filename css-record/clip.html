@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .shape {
+        position: relative;
+        background: rgba(0, 0, 0, 0.3);
+        width: 4rem;
+        height: 4rem;
+      }
+      .shape > div {
+        position: absolute;
+        width: 30px;
+        height: 20px;
+        background: #f80;
+      }
+      .shape .arrow-left {
+        left: 0;
+        clip-path: polygon(
+          40% 0%,
+          40% 20%,
+          100% 20%,
+          100% 80%,
+          40% 80%,
+          40% 100%,
+          0% 50%
+        );
+      }
+      .shape .arrow-right {
+        right: 0;
+        clip-path: polygon(
+          0% 20%,
+          60% 20%,
+          60% 0%,
+          100% 50%,
+          60% 100%,
+          60% 80%,
+          0% 80%
+        );
+      }
+      .shape .bubble {
+        left: 50%;
+        bottom: 20px;
+        transform: translate(-50%, 0) rotate(90deg);
+        clip-path: polygon(
+          0% 50%,
+          15% 60%,
+          15% 85%,
+          85% 85%,
+          85% 15%,
+          15% 15%,
+          15% 40%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shape">
+      <div class="arrow-left"></div>
+      <div class="arrow-right"></div>
+      <div class="bubble"></div>
+    </div>
+  </body>
+</html>

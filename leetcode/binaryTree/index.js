@@ -1,5 +1,3 @@
-// https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/description/?envType=daily-question&envId=2024-04-24
-
 // Definition for a binary tree node.
 class TreeNode {
   val;
@@ -36,6 +34,66 @@ const createBinaryTree = (list) => {
 const root = createBinaryTree(arr);
 console.log(root);
 
+// 前序遍历
+function preOrder(node) {
+  if (!node) return;
+  console.log(node.val);
+  preOrder(node.left);
+  preOrder(node.right);
+}
+// preOrder(root);
+
+// 中序遍历
+function inOrder(node) {
+  if (!node) return;
+  inOrder(node.left);
+  console.log(node.val);
+  inOrder(node.right);
+}
+// inOrder(root);
+
+// 后序遍历
+function postOrder(node) {
+  if (!node) return;
+  postOrder(node.left);
+  postOrder(node.right);
+  console.log(node.val);
+}
+// postOrder(root);
+
+// 层序遍历 https://leetcode.cn/problems/binary-tree-level-order-traversal/
+function levelOrder(node) {
+  if (!node) return [];
+  let queue = [node];
+  let result = [];
+  while (queue.length) {
+    const tempQueue = [];
+    const tempResult = [];
+    const len = queue.length;
+    for (let i = 0; i < len; i++) {
+      const currentNode = queue.shift();
+      tempResult.push(currentNode.val);
+      currentNode.left && tempQueue.push(currentNode.left);
+      currentNode.right && tempQueue.push(currentNode.right);
+    }
+    queue = tempQueue;
+    result.push(tempResult);
+  }
+
+  return result;
+}
+// console.log(levelOrder(root));
+
+// 二叉树深度 leetcode.cn/problems/er-cha-shu-de-shen-du-lcof/description/
+function calculateDepth(node) {
+  if (!node) return 0;
+  const leftDepth = calculateDepth(node.left);
+  const rightDepth = calculateDepth(node.right);
+  return Math.max(leftDepth, rightDepth) + 1;
+}
+// console.log(calculateDepth(root));
+
+// https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/description/?envType=daily-question&envId=2024-04-24
 function amountOfTime(root, start) {
   const graph = new Map(); // 解析为无向图
   const dfs = (node) => {
@@ -71,5 +129,4 @@ function amountOfTime(root, start) {
   }
   return time;
 }
-
-amountOfTime(root, 3);
+// amountOfTime(root, 3);

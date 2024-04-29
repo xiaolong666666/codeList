@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .move {
+        width: 60px;
+        height: 60px;
+        background-color: #f80;
+      }
+      .container {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #f0f0f0;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="move" class="move" draggable="true"></div>
+    <div class="container"></div>
+  </body>
+  <script>
+    const move = document.querySelector(".move");
+    const container = document.querySelector(".container");
+    move.addEventListener("dragstart", (e) => {
+      console.log("dragstart", e);
+      e.dataTransfer.setData("id", e.target.id);
+    });
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+    container.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const id = e.dataTransfer.getData("id");
+      const drapEl = document.getElementById(id);
+      console.log("drop", drapEl);
+      e.target.appendChild(drapEl);
+    });
+  </script>
+</html>
