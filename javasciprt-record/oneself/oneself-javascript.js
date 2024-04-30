@@ -11,14 +11,14 @@ function xlObjectCreate(obj) {
 
 // instanceof
 function xlInstanceof(obj, constructor) {
-  let __proto__ = obj.__proto__;
+  let __proto__ = obj.__proto__; // Object.getPrototypeOf(obj)
   let prototype = constructor.prototype;
 
   while (__proto__) {
     if (__proto__ === prototype) {
       return true;
     }
-    __proto__ = __proto__.__proto__;
+    __proto__ = __proto__.__proto__; // Object.getPrototypeOf(__proto__)
   }
   return false;
 }
