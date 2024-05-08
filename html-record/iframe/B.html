@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      var onReceiveMessage = function (e) {
+        console.log("B Page", e.data);
+
+        e.source.postMessage("B ==> A", "*");
+      };
+
+      addEventListener("message", onReceiveMessage);
+
+      // window.parent.postMessage("B ==> A!!!", "*");
+    </script>
+  </head>
+  <body>
+    <h3>B</h3>
+  </body>
+</html>
