@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>内容出现了</div>
+    <div>内容出现了</div>
+    <div>内容出现了</div>
+    <div>内容出现了</div>
+    <div>内容出现了</div>
+    <div>内容出现了</div>
+    <div>内容出现了</div>
+  </body>
+  <script>
+    // 1
+    window.performance.timing;
+
+    // 2
+    new PerformanceObserver((entryList, observer) => {
+      let entries = entryList.getEntries();
+      for (let i = 0; i < entries.length; i++) {
+        if (entries[i].name === "first-paint") {
+          console.log("FP: ", entries[i].startTime);
+        }
+        if (entries[i].name === "first-contentful-paint") {
+          console.log("FCP: ", entries[i].startTime);
+        }
+      }
+      observer.disconnect();
+    }).observe({ entryTypes: ["paint"] });
+  </script>
+</html>
