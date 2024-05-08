@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      customElements.define(
+        "shadow-welcome",
+        class extends HTMLElement {
+          connectedCallback() {
+            const shadow = this.attachShadow({ mode: "open" });
+            shadow.innerHTML = "welcome to shadow-welcome";
+          }
+        }
+      );
+    </script>
+  </head>
+  <body>
+    <shadow-welcome></shadow-welcome>
+  </body>
+</html>
