@@ -14,11 +14,11 @@ const arr = [1, 5, 3, null, 4, 10, 6, 9, 2];
 
 // 数组转二叉树
 const createBinaryTree = (list) => {
-  let root = new TreeNode(arr[0]);
+  let root = new TreeNode(list[0]);
   let nodeList = [root];
   for (let i = 1; i < list.length; i++) {
-    if (arr[i] === null) continue;
-    const currentNode = new TreeNode(arr[i]);
+    if (list[i] === null) continue;
+    const currentNode = new TreeNode(list[i]);
     nodeList.push(currentNode);
     const parentIdx = ~~((i - 1) / 2);
     const parentNode = nodeList[parentIdx];
