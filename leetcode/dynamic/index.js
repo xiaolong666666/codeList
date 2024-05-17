@@ -1,5 +1,5 @@
 // 300. 最长递增子序列
-function lengthOfLIS(nums: number[]): number {
+function lengthOfLIS(nums) {
   const dp = [];
   dp[0] = 1;
   let max = 1;
@@ -15,3 +15,7 @@ function lengthOfLIS(nums: number[]): number {
 
   return max;
 }
+
+/* 309
+买卖股票的最佳时机含冷冻期
+https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/ */

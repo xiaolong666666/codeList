@@ -130,3 +130,7 @@ function amountOfTime(root, start) {
   return time;
 }
 // amountOfTime(root, 3);
+
+/* 105
+从前序与中序遍历序列构造二叉树
+https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/ */
