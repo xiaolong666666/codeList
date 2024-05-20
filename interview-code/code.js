@@ -61,12 +61,13 @@ for(i=1;i<101;i++){
     }
 
     put(key, value) {
-      if (this.cache.size >= this.capacity) {
+      if (this.cache.size >= this.capacity && !this.cache.has(key)) {
         this.cache.delete(this.cache.keys().next().value);
-        this.cache.set(key, value);
-      } else {
-        this.cache.set(key, value);
+        
       }
+      if (this.cache.has(key)) this.cache.delete(key);
+      
+      this.cache.set(key, value)
     }
 
     get(key) {
