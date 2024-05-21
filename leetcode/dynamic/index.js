@@ -1,5 +1,23 @@
-// 300. 最长递增子序列
-function lengthOfLIS(nums) {
+/* 62
+不同路径
+https://leetcode.cn/problems/unique-paths/description/ */
+
+/* 63
+不同路径 II
+https://leetcode.cn/problems/unique-paths-ii/description/ */
+
+/* 64
+最小路径和
+https://leetcode.cn/problems/minimum-path-sum/description/ */
+
+/* 70
+爬楼梯
+https://leetcode.cn/problems/climbing-stairs/description/ */
+
+/* 300
+最长递增子序列
+https://leetcode.cn/problems/longest-increasing-subsequence/description/ */
+https: function lengthOfLIS(nums) {
   const dp = [];
   dp[0] = 1;
   let max = 1;
