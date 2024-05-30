@@ -1,0 +1,49 @@
+/* 利用table属性实现 */
+.table {
+  width: 500px;
+  display: table;
+}
+
+.tableRow {
+  display: table-row;
+}
+
+.tableCell {
+  display: table-cell;
+}
+
+.cell1 {
+  background: #6ee0b6;
+}
+
+.cell2 {
+  background: #f3777b;
+}
+
+.cell3 {
+  background: #c3c3ff;
+}
+
+/* 利用 margin 和 padding 对冲实现 */
+#wrapper {
+  overflow: hidden;
+}
+
+.column {
+  float: left;
+  width: 200px;
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.left {
+  background: #6ee0b6;
+}
+
+.center {
+  background: #f3777b;
+}
+
+.right {
+  background: #c3c3ff;
+}
