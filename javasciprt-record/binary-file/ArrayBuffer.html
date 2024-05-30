@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        const readFile = document.getElementById("read-file");
+        readFile.addEventListener(
+          "change",
+          function () {
+            const currentFile = this.files[0];
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(currentFile);
+            reader.onload = function () {
+              console.log(this.result);
+            };
+            reader.onerror = function () {
+              console.log(this.error);
+            };
+          },
+          false
+        );
+      };
+    </script>
+  </head>
+  <body>
+    <h3>ArrayBuffer本地读取内容</h3>
+    <input type="file" id="read-file" />
+  </body>
+</html>

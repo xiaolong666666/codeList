@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        const blob = new Blob(["Hello Blob!"]);
+        const url = URL.createObjectURL(blob);
+        const a = document.getElementById("a");
+        a.download = "hello-blob.txt";
+        a.href = url;
+      };
+    </script>
+    <script>
+      window.onload = function () {
+        const file = document.getElementById("file");
+        const img = document.getElementById("img");
+        file.addEventListener(
+          "change",
+          function (e) {
+            const currentFile = this.files[0];
+            const url = URL.createObjectURL(currentFile);
+            img.src = url;
+            img.onload = function () {
+              URL.revokeObjectURL(url); // 释放掉blob所占用的内存
+            };
+          },
+          false
+        );
+      };
+    </script>
+    <script>
+      window.onload = function () {
+        const readFile = document.getElementById("read-file");
+        readFile.addEventListener(
+          "change",
+          function () {
+            const currentFile = this.files[0];
+            const reader = new FileReader();
+            reader.readAsText(currentFile);
+            reader.onload = function () {
+              console.log(this.result);
+            };
+            reader.onerror = function () {
+              console.log(this.error);
+            };
+          },
+          false
+        );
+      };
+    </script>
+  </head>
+  <body>
+    <h3>Blob 实现下载文件</h3>
+    <a id="a">点击下载</a>
+    <hr />
+    <h3>Blob 实现图片本地显示</h3>
+    <input type="file" id="file" />
+    <img id="img" style="width: 200px; height: 200px" />
+    <hr />
+    <h3>Blob本地读取内容</h3>
+    <input type="file" id="read-file" />
+  </body>
+</html>
