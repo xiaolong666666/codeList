@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        width: 500px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+      }
+      .container div:nth-child(1) {
+        background-color: red;
+      }
+      .container div:nth-child(2) {
+        background-color: orange;
+      }
+      .container div:nth-child(3) {
+        background-color: yellow;
+      }
+      .container div:nth-child(4) {
+        background-color: green;
+      }
+      .container div:nth-child(5) {
+        background-color: blueviolet;
+      }
+      .container div {
+        /* flex-basis: 200px; */
+        /* flex-grow: 0; */
+        /* flex-shrink: 1; */
+        /* flex-basis: auto; */
+        flex: initial;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>div11111</div>
+      <div>div2222</div>
+      <div>div333</div>
+      <div>div44</div>
+      <div>div5</div>
+    </div>
+  </body>
+</html>
