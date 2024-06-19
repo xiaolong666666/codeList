@@ -2,44 +2,45 @@
 // 一层一层去调用，然后再依次返回
 
 function one(next) {
-    console.log('one next', next)
-    return function(action) {
-        console.log('one start', action)
-        action = action * 2
-        next(action)
-        console.log('one end')
-    }
+  console.log("one next", next);
+  return function (action) {
+    console.log("one start", action);
+    action = action * 2;
+    next(action);
+    console.log("one end");
+  };
 }
 
 function two(next) {
-    console.log('two next', next)
-    return function(action) {
-        console.log('two start', action)
-        action = action + 20
-        next(action)
-        console.log('two end')
-    }
+  console.log("two next", next);
+  return function (action) {
+    console.log("two start", action);
+    action = action + 20;
+    next(action);
+    console.log("two end");
+  };
 }
 
 function three(next) {
-    console.log('three next', next)
-    return function(action) {
-        console.log('three start', action)
-        action = action / 4
-        next(action)
-        console.log('three end')
-    }
+  console.log("three next", next);
+  return function (action) {
+    console.log("three start", action);
+    action = action / 4;
+    next(action);
+    console.log("three end");
+  };
 }
 
 const compose = (list) =>
-    list.reduce(
-        (a, b) =>
-        (...args) => a(b(...args))
-    )
+  list.reduce(
+    (a, b) =>
+      (...args) =>
+        a(b(...args))
+  );
 
-const functionList = [one, two, three]
+const functionList = [one, two, three];
 
-const composeFunction = compose(functionList)(console.log)
+// const composeFunction = compose(functionList)(console.log);
 
 // 解析
 // let step1 = (...args) => one(two(...args))
@@ -47,4 +48,43 @@ const composeFunction = compose(functionList)(console.log)
 // let step3 = (...args) => step2(...args)
 // console.log(step3(console.log)(6))
 
-console.log(composeFunction(6))
+// console.log(composeFunction(6));
+
+// Koa
+class Koa {
+  constructor() {
+    this.queue = [];
+  }
+  use(callback) {
+    this.queue.push((next) => () => callback(this, next));
+  }
+  run() {
+    this.queue.reduce(
+      (pre, current) =>
+        (...args) =>
+          pre(current(...args))
+    )(console.log)();
+  }
+}
+
+const koa = new Koa();
+
+koa.use((ctx, next) => {
+  console.log("start 1", ctx, next);
+  next();
+  console.log("end 1");
+});
+
+koa.use((ctx, next) => {
+  console.log("start 2", ctx, next);
+  next();
+  console.log("end 2");
+});
+
+koa.use((ctx, next) => {
+  console.log("start 3", ctx, next);
+  next();
+  console.log("end 3");
+});
+
+koa.run();
