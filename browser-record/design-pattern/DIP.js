@@ -48,8 +48,6 @@ class Store {
   // 支持外部进行注册
   static inject = (module) => Store.modules.set(module.constuctor.name, module);
   constructor() {
-    this.share = new Share();
-    this.rate = new Rate();
     for (let module of Store.modules.values()) {
       // 每个模块进行初始化
       module.init(this);
