@@ -141,11 +141,13 @@ const mergeSort = (arr) => {
 };
 
 // 堆排序
+// 先依次调整每个小树的父节点为最大值 => 顶堆为最大值 => “顶堆”与“数组最末尾”交换位置
+//    => i = len - 1 开始循环，每次找出最大顶堆 => 再次交换位置 & len-- => i === 0 结束
 const heapSort = (arr) => {
   var len = arr.length;
 
   // 堆调整
-  const heapify = (arr, i) => {
+  const heapify = (i) => {
     let left = 2 * i + 1;
     right = left + 1;
     largest = i;
@@ -153,20 +155,21 @@ const heapSort = (arr) => {
     if (arr[right] > arr[largest] && right < len) largest = right;
     if (largest !== i) {
       swap(arr, i, largest);
-      heapify(arr, largest); // 如果父节点有变化，（交换的子节点）为父节点的节点需要要重新进行堆调整
+      heapify(largest); // 如果父节点有变化，（交换的子节点）为父节点的节点需要要重新进行堆调整
     }
   };
 
   // 大顶堆（父节点大于子节点）
   const buildMaxHeap = (arr) => {
-    for (let i = Math.floor((len - 2) / 2); i >= 0; i--) heapify(arr, i);
+    for (let i = Math.floor((len - 2) / 2); i >= 0; i--) heapify(i);
   };
   buildMaxHeap(arr);
+  // 保证顶堆最大
   for (let i = arr.length - 1; i > 0; i--) {
     // console.log(arr)
     swap(arr, i, 0);
     len--;
-    heapify(arr, 0);
+    heapify(0);
   }
 };
 
