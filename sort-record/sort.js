@@ -174,72 +174,71 @@ const heapSort = (arr) => {
 };
 
 // 桶排序（核心在于分桶）
-const bucketlSort = (arr, bucketCapacity = 5) => {
-  let max = (min = arr[0]);
+const bucketlSort = (arr, bucketSize = 5) => {
+  if (!arr.length) return arr;
+  let min = Math.min(...arr);
+  let max = Math.max(...arr);
+  // 计算桶个数
+  const bucketCount = Math.ceil((max - min + 1) / bucketSize);
+  // 初始化桶
+  const buckets = Array.from({ length: bucketCount }, () => new Array());
+  // 遍历桶，将对应的数值依次放入对应的桶中
   for (let v of arr) {
-    max = v > max ? v : max;
-    min = v < min ? v : min;
+    const idx = Math.floor((v - min) / bucketSize);
+    buckets[idx].push(v);
   }
-  const bucketCount = Math.ceil((max - min + 1) / bucketCapacity);
-  const bucket = new Array(bucketCount);
-  for (let v of arr) {
-    const index = Math.floor((v - min) / bucketCapacity);
-    if (!bucket[index]) bucket[index] = [];
-    bucket[index].push(v);
+  // 对每个桶中的数据进行进一步排序
+  for (let bucket of buckets) {
+    insertSort(bucket);
   }
-  for (let i in bucket) {
-    insertSort(bucket[i]);
-  }
-  for (let i in bucket.flat()) {
-    arr[i] = bucket.flat()[i];
-  }
+
+  return buckets.flat();
 };
 
 // 计数排序（桶排序特殊情况，范围比较小的）
 // 将数据值转换为键存储在额外开辟的数组空间中，然后再按开辟的数组空间排序（有确定范围的整数）
 const countSort = (arr) => {
-  let index = 0;
-  const max = Math.max(...arr);
-  const additional_length = max + 1;
-  const additional = new Array(additional_length);
+  if (!arr.length) return arr;
+  let min = Math.min(...arr);
+  let max = Math.max(...arr);
+  // 最小值～最大值范围
+  const range = max - min + 1;
+  // 记录每个数值个数的数组
+  const countList = new Array(range).fill(0);
+  const sortedList = [];
   for (let v of arr) {
-    if (!additional[v]) {
-      additional[v] = 0;
-    }
-    additional[v]++;
+    // 每个数值占据一个元素位置
+    countList[v - min]++;
   }
-  for (let i = 0; i < additional_length; i++) {
-    while (additional[i] > 0) {
-      arr[index++] = i;
-      additional[i]--;
+  for (let i = 0; i < range; i++) {
+    while (countList[i]) {
+      sortedList.push(i + min);
+      countList[i]--;
     }
   }
-  return arr;
+  return sortedList;
 };
 
 // 基数排序（需要按位分隔）
-const radixSort = (arr) => {
-  const length = arr.length;
+// 适合位数差不多的数值组成的数组
+const radixSort = (arr, radix = 10) => {
   const max = Math.max(...arr);
+  // 获取最大位数
   const maxDigit = String(max).length;
-  var carry = 10;
-  var bit = 1;
-  for (let i = 0; i < maxDigit; i++, carry *= 10, bit *= 10) {
-    const counter = [];
-    let index = 0;
-    for (let j = 0; j < arr.length; j++) {
-      let bucket = Math.floor((arr[j] % carry) / bit);
-      if (!counter[bucket]) {
-        counter[bucket] = [];
-      }
-      counter[bucket].push(arr[j]);
+  let sortedList = [...arr];
+  for (let i = 0; i < maxDigit; i++) {
+    const buckets = Array.from({ length: radix }, () => new Array());
+    for (let v of sortedList) {
+      let digit = getDigit(v, i);
+      buckets[digit].push(v);
     }
-    for (let k = 0; k < counter.length; k++) {
-      if (!!counter[k]) {
-        while (!!counter[k][0]) {
-          arr[index++] = counter[k].shift();
-        }
-      }
-    }
+    sortedList = [].concat(...buckets);
   }
+
+  return sortedList;
 };
+
+// 获取一个数在特定位置上的数字
+function getDigit(num, digitIdx, radix = 10) {
+  return Math.floor(Math.abs(num) / Math.pow(radix, digitIdx)) % radix;
+}
