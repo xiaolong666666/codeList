@@ -11,7 +11,7 @@
       } else if (list[mid] < target) {
         low = mid + 1;  // 不使用 low = mid 原因：可能造成死循环
       } else {
-        low = mid - 1;  // 同上
+        high = mid - 1;  // 同上
       }
     }
 
