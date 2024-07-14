@@ -54,13 +54,13 @@ const functionList = [one, two, three];
 class Koa {
   constructor() {
     this.ctx = { req: {}, res: {} };
-    this.queue = [];
+    this.middleware = [];
   }
   // use(callback) {
-  //   this.queue.push((next) => () => callback(this, next));
+  //   this.middleware.push((next) => () => callback(this, next));
   // }
   // run() {
-  //   this.queue.reduce(
+  //   this.middleware.reduce(
   //     (pre, current) =>
   //       (...args) =>
   //         pre(current(...args))
@@ -68,7 +68,7 @@ class Koa {
   // }
 
   use(callback) {
-    this.queue.push(callback);
+    this.middleware.push(callback);
   }
 
   compose(middleware) {
@@ -99,7 +99,7 @@ class Koa {
   }
 
   run() {
-    this.compose(this.queue)(this.ctx);
+    this.compose(this.middleware)(this.ctx);
   }
 }
 
