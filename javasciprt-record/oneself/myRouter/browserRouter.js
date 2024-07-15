@@ -35,7 +35,7 @@ class Router {
     }
 
     let currentComponentName = "";
-    let nodeList = document.querySelectorAll("[data-component-name");
+    let nodeList = document.querySelectorAll("[data-component-name]");
 
     for (let i = 0; i < this._routes.length; i++) {
       if (this._routes[i].path === this.currentUrl) {
