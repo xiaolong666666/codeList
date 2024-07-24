@@ -30,7 +30,7 @@ Function.prototype.myApply = function () {
 
   // 将this绑定在 __proto__ 上防止在 Function 打印 this 时会出现多余的属性
   context.__proto__[key] = this;
-  const result = args[1]?.length ? context[key](...args[1]) : context[key]();
+  const result = args[0]?.length ? context[key](...args[0]) : context[key]();
   delete context.__proto__[key];
 
   return result;
